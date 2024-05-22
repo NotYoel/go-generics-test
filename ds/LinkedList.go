@@ -1,7 +1,6 @@
 package ds
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -39,14 +38,56 @@ func (lst *LinkedList[T]) Get(index int) (T, error) {
 		return *new(T), fmt.Errorf("index %d not found", index)
 	}
 
+	var val T
+
 	for curr, i := lst.head, 0; curr != nil; curr = curr.next {
 		if i == index {
-			return curr.val, nil
+			val = curr.val
+			break
 		}
 		i++
 	}
 
-	return *new(T), errors.New("unknown error")
+	return val, nil
+}
+
+func (lst *LinkedList[T]) Remove(index int) error {
+	// Index out of bounds
+	if lst.indexOutOfBounds(index) {
+		return fmt.Errorf("index %d not found", index)
+	}
+
+	if index == 0 {
+		if lst.Length() == 1 {
+			lst.head, lst.tail = nil, nil
+		} else {
+			lst.head = lst.head.next
+		}
+
+		return nil
+	} else if index == lst.Length()-1 {
+		if lst.Length() == 2 {
+			lst.head.next, lst.tail = nil, lst.head
+			return nil
+		}
+	}
+
+	for curr, i, last := lst.head, 0, lst.head; curr != nil; curr = curr.next {
+		if i == index {
+			last.next = curr.next
+
+			if index == lst.Length() {
+				lst.tail = last
+			}
+			break
+		}
+
+		i++
+		last = curr
+
+	}
+
+	return nil
 }
 
 func (lst *LinkedList[T]) Length() (len int) {
