@@ -2,6 +2,7 @@ package ds
 
 import (
 	"fmt"
+	"reflect"
 )
 
 type LinkedList[T any] struct {
@@ -96,6 +97,16 @@ func (lst *LinkedList[T]) Length() (len int) {
 	}
 
 	return
+}
+
+func (lst *LinkedList[T]) Contains(itm T) bool {
+	for curr := lst.head; curr != nil; curr = curr.next {
+		if reflect.DeepEqual(curr.val, itm) {
+			return true
+		}
+	}
+
+	return false
 }
 
 func (lst *LinkedList[T]) All() (itms []T) {

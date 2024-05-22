@@ -13,5 +13,5 @@ func main() {
 	lst.Push(45)
 	lst.Push(90)
 
-	fmt.Println(lst.Remove(1), lst.All())
+	fmt.Println(lst.Remove(1), lst.All(), lst.Contains(90), lst.Contains(45)) // <nil>, [10, 90], true, false
 }
