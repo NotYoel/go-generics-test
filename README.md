@@ -2,7 +2,7 @@
 Testing Golang generics by making simple data structures
 
 ## Todo
-- [ ] LinkedList
+- [X] LinkedList
 - [ ] Stack
 - [ ] Queue
 
